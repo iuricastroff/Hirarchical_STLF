@@ -5,7 +5,7 @@ close all
 %% Importação de dados pré-tratados         
     display('Importação de dados da MTR e MRs');
       
-    load entrada_IVCT.mat %Importação de dados IVCT já tratados.
+    
     load CERM.mat %%Arquivo externo de temperatura histórica ponderados pela variável CERM
   
      
@@ -79,7 +79,7 @@ in(7,:) = pre2WeekSameHourLoad; % FAC studies LOAD
 in(8,:) = MR1_cerm1; %Ajuste manual
 in(8,:) = preDaytemp24;
 in(9,:) = preDaytemp25;
-in(10,:) = sinal_MR1; %Ajuste manual
+
 
 
 JA = 504; %Janela de treinamento para Conjunto 1 e Conjunto 2
