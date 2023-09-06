@@ -2,23 +2,23 @@ clc
 clear all
 close all
 
-%% ImportaÁ„o de dados prÈ-tratados         
-    display('ImportaÁ„o de dados da MTR e MRs');
+%% Importa√ß√£o de dados pr√©-tratados         
+    display('Importa√ß√£o de dados da MTR e MRs');
       
-    load entrada_IVCT.mat %ImportaÁ„o de dados IVCT j· tratados.
-    load CERM.mat %%Arquivo externo de temperatura histÛrica ponderados pela vari·vel CERM
+   
+    load CERM.mat %%Arquivo externo de temperatura hist√≥rica ponderados pela vari√°vel CERM
   
      
-    %% DAdos de demanda s„o carregados
+    %% DAdos de demanda s√£o carregados
      
-    fileToRead='full_Modelo_rotulo.xlsx';      %% HistÛrico de dados de carga por MR
-    [Load, string] = xlsread(fileToRead, 'MR1'); %% Escolha Manual: MR1, MR2 (Macro-regiıes)
+    fileToRead='full_Modelo_rotulo.xlsx';      %% Hist√≥rico de dados de carga por MR
+    [Load, string] = xlsread(fileToRead, 'MR1'); %% Escolha Manual: MR1, MR2 (Macro-regi√µes)
     Load=Load';
     [tsize,pos1] = size(string);
-    [feriado] =  xlsread(fileToRead, 'feriado'); %% Carregar tabela de feriados parao perÌodo considerado.
+    [feriado] =  xlsread(fileToRead, 'feriado'); %% Carregar tabela de feriados parao per√≠odo considerado.
      feriado=feriado';
 %%     
-%Etapa de rotulaÁ„o
+%Etapa de rotula√ß√£o
   
 i=1; 
     
@@ -53,7 +53,7 @@ i=1;
     preDaytemp26 = [NaN(1,3), MR1_cerm1(1:end-3)];
     
     
-   %% Vari·veis Dummy
+   %% Vari√°veis Dummy
     
         for tl=1:1:tsize;
         if dayOfWeek(:,tl) == 6
@@ -79,7 +79,7 @@ in(7,:) = pre2WeekSameHourLoad; % FAC studies LOAD
 in(8,:) = MR1_cerm1; %Ajuste manual
 in(8,:) = preDaytemp24;
 in(9,:) = preDaytemp25;
-in(10,:) = sinal_MR1; %Ajuste manual
+
 
 
 JA = 504; %Janela de treinamento para Conjunto 1 e Conjunto 2
@@ -94,7 +94,7 @@ testin = in(:,12529+JA:12696+JA);
 testLoad = Load(1,12529+JA:12696+JA);
 
 %%
-%Testes para o Conjunto 1 (HabilitaÁ„o Manual para escolha do Conjunto 1
+%Testes para o Conjunto 1 (Habilita√ß√£o Manual para escolha do Conjunto 1
 
 % valind = in(:,1+JA:9672+JA);
 % ValidLoad = Load(1,1+JA:9672+JA);
@@ -107,13 +107,13 @@ testLoad = Load(1,12529+JA:12696+JA);
 
     min_err     = inf;
     display('Treinamento em Progresso.......');
-    display('OBS: CTRL+C para interromper simulaÁ„o');
+    display('OBS: CTRL+C para interromper simula√ß√£o');
   
     
-  for neurons_no = 13:3:48; %VariaÁ„o do n˙mero de neurÙnios Camada Intermedi·ria (vari·vel)
+  for neurons_no = 13:3:48; %Varia√ß√£o do n√∫mero de neur√¥nios Camada Intermedi√°ria (vari√°vel)
       neurons_no
          
-       for n = 1:1:10; %IteraÁıes para n neurÙnios
+       for n = 1:1:10; %Itera√ß√µes para n neur√¥nios
                 
         net = feedforwardnet(neurons_no);  
         [net,tr] = trainlm(net, valind, ValidLoad);
@@ -126,7 +126,7 @@ testLoad = Load(1,12529+JA:12696+JA);
                       
         end
        
-     %AgregaÁ„o de dados para armazenamento do MAPE mÌnimo GLOBAL
+     %Agrega√ß√£o de dados para armazenamento do MAPE m√≠nimo GLOBAL
      t = neurons_no-5;
      [MAPE_min,POS] =  min(MAPE);   %Obter o melhor resultado das n rodadas 
      MAPE_minglobal(t,:) = MAPE_min; 
@@ -140,7 +140,7 @@ testLoad = Load(1,12529+JA:12696+JA);
   end
   
   
-%% FunÁ„o PLOT b·sica para verificaÁ„o inicial
+%% Fun√ß√£o PLOT b√°sica para verifica√ß√£o inicial
 
 figure(22673);
 t1=[1:length(testLoad)];
